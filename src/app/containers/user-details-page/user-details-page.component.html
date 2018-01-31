@@ -1,0 +1,48 @@
+
+
+<div class="container" *ngIf="user">
+
+  <h1>
+      {{user.name}} 
+  </h1>
+
+  <div class="card" >
+    <img class="card-img-top" src="{{user.avatar_url || 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'}}" alt="Card image cap">
+    
+
+      <ul class="list-group list-group-flush">
+        
+        <li *ngIf="user.login" class="list-group-item"><i class="fa fa-github"></i>&nbsp;<strong>{{user.login}}</strong></li>      
+        <li *ngIf="user.bio" class="list-group-item">bio:&nbsp;<strong>{{user.bio}}</strong></li>      
+        <li *ngIf="user.email" class="list-group-item">email:&nbsp;<strong>{{user.email}}</strong></li>
+        <li *ngIf="user.location" class="list-group-item">location:&nbsp;<strong>{{user.location}}</strong></li>
+
+        <li *ngIf="user.followers" class="list-group-item">followers:&nbsp;<strong>{{user.followers}}</strong></li>
+        <li *ngIf="user.public_repos" class="list-group-item">public repos:&nbsp;<strong>{{user.public_repos}}</strong></li>
+        
+        <li *ngIf="user.created_at" class="list-group-item">joined Github:&nbsp;<strong>{{user.created_at | amUtc | amDateFormat: 'YYYY-MM-DD'}}</strong></li>
+        <li *ngIf="user.updated_at" class="list-group-item">updated Github:&nbsp;<strong>{{user.updated_at  | amTimeAgo}}</strong></li>
+
+      </ul>
+    
+  </div>
+  <br/>
+  <div class="card" *ngIf="repos">
+    <div class="card-header">
+      Repositories
+    </div>
+      
+    <ul  class="list-group list-group-flush">    
+      
+      <li *ngFor="let r of repos"  class="list-group-item">
+        {{r.name}} <span class="badge badge-info">watchers: {{r.watchers}}</span>
+      </li>    
+  
+    </ul>
+
+  </div>
+  
+</div>
+
+
+<!-- <img src="/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">      -->

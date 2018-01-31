@@ -1,0 +1,24 @@
+
+
+<div class="container" >
+    <div >
+        <h1>Github Users</h1>
+    </div>
+</div>
+
+<div class="container">
+
+  <div class="users__search ">
+    <form class="form-group">
+        <user-search-bar (search_text_query)="searchTextQuery($event)"></user-search-bar>
+    </form>
+  </div>
+  
+  <div *ngIf="this.users" class="row">   
+      <user-list-item class="col-md-3" *ngFor="let user of this.users" [user]="user" (click)="userClicked(user)"> </user-list-item>
+  </div>
+
+</div>
+
+
+
