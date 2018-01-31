@@ -2,10 +2,6 @@
 
 This project exercises the Github API to search users by login 
 
-
-
-
-
 ## Welcome to the wnuv-gh-users wiki!
 
 A web application in Angular 5.2 that consumes Github API
@@ -28,12 +24,57 @@ A web application in Angular 5.2 that consumes Github API
 ![Overview Diagram](https://raw.githubusercontent.com/david-salvador/wnuv-gh-users/master/src/assets/documentation/overview01.png)
 
 
+## HomePage
+This Container element includes a 
+1. search bar to let the user search by username (login name)
+1. list of users along with their avatar and their username on the same page
+
+When a list item is clicked, the application navigates to a new page that displays a simple list with all the user 
+ details.
+
+### Component userSearchBar
+In order to allow to search while typing on the userSearchBar, keyup events are channeled through streams to declare behaviours that do not overload nor generate failed searches.
+
+`
+
+    Observable.fromEvent(this.textInputElement.nativeElement, 'keyup')
+
+    .pipe(
+        map((e:any) => e.target.value),
+        filter((text:string) => text.length > 2),
+        debounceTime(200),
+        tap((text:string)=> this.search_text_query.next(text))
+    ).subscribe()
+
+`
+The resulting Observable (rxjs stream) is mapped to a stream of text values of the input text field, of which only values with more than 2 characters are considered values worthy of consideration, and thus the filter operator is piped in.
+
+Only when the user has remained 200ms without modifying the input field, to provide a sense of interactive responsiveness, we allow new values to go through. This is also to avoid converting into actual server requests values which are not intended to be actual requests.
+
+Only the remaning stream values are side-effected into web api requests, delegated into the HomePageService to remove logic from visual container elements. (See HomePageService below)
 
 
+## UserDetailsPage
+The aim of this page container element is to:
+
+1. display a list of profile details for the user clicked back in HomePage
+1. display a list of the user's public repositories and the number of followers for each repository
+1. allow deep linking to the user profile by referencing the url (reusable URL)
+
+This page container element does not delegate logic to the injected service UserDetailsPageService, with the aim of allowing code reuse with other apps.
+
+## HomePageService
+Isolates the HomePage Container component from reusable logic and interaction with other services, in particular in this project with the GithubService.
+
+## UserDetailsPageService
+Isolates the UserDetailsPage Container component from reusable logic and interaction with other services, in particular in this project with the GithubService.
+
+## GithubService
+Encapsulates web interaction with the Github public API.
+For development purposes it includes a boolean flag to use mocked data and relieve the abuse constraints set by Github without having to use the credentials between developers.
 
 
-
-#Installation
+# Installation
 
 ## Development server
 
