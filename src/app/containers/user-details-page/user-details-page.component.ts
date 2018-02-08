@@ -18,9 +18,7 @@ export class UserDetailsPageComponent implements OnInit {
 
   private username:string;
 
-  constructor(private pageService:UserDetailsPageService, private route: ActivatedRoute) {
-
-  }
+  constructor(private pageService:UserDetailsPageService, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -30,10 +28,8 @@ export class UserDetailsPageComponent implements OnInit {
     )
     .subscribe(params => this.username=params.username)
 
-    this.user$ = this.pageService.getUserDetails(this.username);
-    //this.users$.subscribe(console.log);
-    this.user$
-    .pipe(
+    this.user$ = this.pageService.getUserDetails(this.username);    
+    this.user$.pipe(
       tap(user => console.log('udp>',user)),
     )
     .subscribe((user:any) => {

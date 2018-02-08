@@ -1,5 +1,4 @@
 export class User {
-//export interface User {
 
   username:string;
   avatar_url:string;
@@ -12,10 +11,3 @@ export class User {
   }
 
 }
-
-
-/*
-
-
-
-*/
