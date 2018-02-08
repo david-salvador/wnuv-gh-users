@@ -2,6 +2,8 @@
 
 This project exercises the Github API to search users by login 
 
+running demo at: [www.ecix.es/labs/01_ng5_lab_github_user_search_01](http://www.ecix.es/labs/01_ng5_lab_github_user_search_01)
+
 ## Welcome to the wnuv-gh-users wiki!
 
 A web application in Angular 5.2 that consumes Github API
